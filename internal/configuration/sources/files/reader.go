@@ -57,49 +57,49 @@ func (s *Source) Get(key string) (value string, isSet bool) {
 			s.warner.Warnf("skipping %s: parsing PEM: %s", path, err)
 		}
 		return value, isSet
-	case "wireguard_private_key":
+	case "wireguard_private_key", "amnezia_private_key":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().PrivateKey)
-	case "wireguard_preshared_key":
+	case "wireguard_preshared_key", "amnezia_preshared_key":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().PreSharedKey)
-	case "wireguard_addresses":
+	case "wireguard_addresses", "amnezia_addresses":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().Addresses)
-	case "wireguard_public_key":
+	case "wireguard_public_key", "amnezia_public_key":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().PublicKey)
-	case "wireguard_endpoint_ip":
+	case "wireguard_endpoint_ip", "amnezia_endpoint_ip":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().EndpointIP)
-	case "wireguard_endpoint_port":
+	case "wireguard_endpoint_port", "amnezia_endpoint_port":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().EndpointPort)
-	case "wireguard_jc":
+	case "amnezia_jc":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.Jc)
-	case "wireguard_jmin":
+	case "amnezia_jmin":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.Jmin)
-	case "wireguard_jmax":
+	case "amnezia_jmax":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.Jmax)
-	case "wireguard_s1":
+	case "amnezia_s1":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.S1)
-	case "wireguard_s2":
+	case "amnezia_s2":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.S2)
-	case "wireguard_s3":
+	case "amnezia_s3":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.S3)
-	case "wireguard_s4":
+	case "amnezia_s4":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.S4)
-	case "wireguard_h1":
+	case "amnezia_h1":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.H1)
-	case "wireguard_h2":
+	case "amnezia_h2":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.H2)
-	case "wireguard_h3":
+	case "amnezia_h3":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.H3)
-	case "wireguard_h4":
+	case "amnezia_h4":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.H4)
-	case "wireguard_i1":
+	case "amnezia_i1":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.I1)
-	case "wireguard_i2":
+	case "amnezia_i2":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.I2)
-	case "wireguard_i3":
+	case "amnezia_i3":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.I3)
-	case "wireguard_i4":
+	case "amnezia_i4":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.I4)
-	case "wireguard_i5":
+	case "amnezia_i5":
 		return strPtrToStringIsSet(s.lazyLoadWireguardConf().AmneziaParams.I5)
 	}
 
