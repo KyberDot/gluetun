@@ -183,6 +183,7 @@ func Test_GetConnection(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 			ctrl := gomock.NewController(t)
+			connPicker := NewConnectionPicker()
 
 			storage := common.NewMockStorage(ctrl)
 			storage.EXPECT().
@@ -191,7 +192,7 @@ func Test_GetConnection(t *testing.T) {
 
 			connection, err := GetConnection(testCase.provider, storage,
 				testCase.serverSelection, testCase.defaults, testCase.ipv6Supported,
-				testCase.randSource)
+				connPicker)
 
 			assert.Equal(t, testCase.connection, connection)
 			if testCase.errMessage != "" {

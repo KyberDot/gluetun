@@ -2,7 +2,6 @@ package windscribe
 
 import (
 	"errors"
-	"math/rand"
 	"net/http"
 	"net/netip"
 	"testing"
@@ -92,11 +91,10 @@ func Test_Provider_GetConnection(t *testing.T) {
 			storage := common.NewMockStorage(ctrl)
 			storage.EXPECT().FilterServers(provider, testCase.selection).
 				Return(testCase.filteredServers, testCase.storageErr)
-			randSource := rand.NewSource(0)
 
 			client := (*http.Client)(nil)
 			warner := (common.Warner)(nil)
-			provider := New(storage, randSource, client, warner)
+			provider := New(storage, client, warner)
 
 			if testCase.panicMessage != "" {
 				assert.PanicsWithValue(t, testCase.panicMessage, func() {

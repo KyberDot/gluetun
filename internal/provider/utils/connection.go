@@ -2,7 +2,6 @@ package utils
 
 import (
 	"fmt"
-	"math/rand"
 
 	"github.com/qdm12/gluetun/internal/configuration/settings"
 	"github.com/qdm12/gluetun/internal/constants/vpn"
@@ -35,7 +34,8 @@ func GetConnection(provider string,
 	selection settings.ServerSelection,
 	defaults ConnectionDefaults,
 	ipv6Supported bool,
-	randSource rand.Source) (
+	connPicker *ConnectionPicker,
+) (
 	connection models.Connection, err error,
 ) {
 	servers, err := storage.FilterServers(provider, selection)
@@ -75,5 +75,5 @@ func GetConnection(provider string,
 		}
 	}
 
-	return pickConnection(connections, selection, randSource)
+	return pickConnection(connections, selection, connPicker)
 }

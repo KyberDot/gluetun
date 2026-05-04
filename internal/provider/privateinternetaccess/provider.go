@@ -1,7 +1,6 @@
 package privateinternetaccess
 
 import (
-	"math/rand"
 	"net/http"
 	"net/netip"
 	"time"
@@ -9,11 +8,12 @@ import (
 	"github.com/qdm12/gluetun/internal/constants/providers"
 	"github.com/qdm12/gluetun/internal/provider/common"
 	"github.com/qdm12/gluetun/internal/provider/privateinternetaccess/updater"
+	"github.com/qdm12/gluetun/internal/provider/utils"
 )
 
 type Provider struct {
 	storage    common.Storage
-	randSource rand.Source
+	connPicker *utils.ConnectionPicker
 	timeNow    func() time.Time
 	common.Fetcher
 	// Port forwarding
@@ -21,14 +21,14 @@ type Provider struct {
 	apiIP           netip.Addr
 }
 
-func New(storage common.Storage, randSource rand.Source,
-	timeNow func() time.Time, client *http.Client,
+func New(storage common.Storage, timeNow func() time.Time,
+	client *http.Client,
 ) *Provider {
 	const jsonPortForwardPath = "/gluetun/piaportforward.json"
 	return &Provider{
 		storage:         storage,
 		timeNow:         timeNow,
-		randSource:      randSource,
+		connPicker:      utils.NewConnectionPicker(),
 		portForwardPath: jsonPortForwardPath,
 		Fetcher:         updater.New(client),
 	}

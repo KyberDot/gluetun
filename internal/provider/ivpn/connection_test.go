@@ -2,7 +2,6 @@ package ivpn
 
 import (
 	"errors"
-	"math/rand"
 	"net/http"
 	"net/netip"
 	"testing"
@@ -91,12 +90,11 @@ func Test_Provider_GetConnection(t *testing.T) {
 			storage := common.NewMockStorage(ctrl)
 			storage.EXPECT().FilterServers(provider, testCase.selection).
 				Return(testCase.filteredServers, testCase.storageErr)
-			randSource := rand.NewSource(0)
 
 			client := (*http.Client)(nil)
 			warner := (common.Warner)(nil)
 			parallelResolver := (common.ParallelResolver)(nil)
-			provider := New(storage, randSource, client, warner, parallelResolver)
+			provider := New(storage, client, warner, parallelResolver)
 
 			connection, err := provider.GetConnection(testCase.selection, testCase.ipv6Supported)
 
