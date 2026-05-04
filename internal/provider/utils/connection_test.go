@@ -124,8 +124,8 @@ func Test_GetConnection(t *testing.T) {
 					VPN: vpn.OpenVPN,
 					UDP: true,
 					IPs: []netip.Addr{
-						netip.IPv6Unspecified(),
 						netip.AddrFrom4([4]byte{1, 1, 1, 1}),
+						netip.IPv6Unspecified(),
 					},
 				},
 			},

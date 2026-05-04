@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"slices"
 
 	"github.com/qdm12/gluetun/internal/configuration/settings"
 	"github.com/qdm12/gluetun/internal/constants/vpn"
@@ -74,6 +75,19 @@ func GetConnection(provider string,
 			connections = append(connections, connection)
 		}
 	}
+
+	slices.SortStableFunc(connections, func(a, b models.Connection) int {
+		aIPv6 := a.IP.Is6()
+		bIPv6 := b.IP.Is6()
+		switch {
+		case aIPv6 && !bIPv6:
+			return -1
+		case !aIPv6 && bIPv6:
+			return 1
+		default:
+			return 0
+		}
+	})
 
 	return pickConnection(connections, selection, connPicker)
 }
