@@ -262,12 +262,19 @@ func Test_formatCredentialForDump(t *testing.T) {
 			provider: "protonvpn",
 			vpnType:  vpnTypeOpenVPN,
 			providerCredentials: providerCredentials{
-				OpenVPN: &openvpnCredentials{Username: "user", Password: "pass"},
+				OpenVPN: &openvpnCredentials{
+					Username: "user",
+					Password: "pass",
+					Key:      "key",
+					Cert:     "cert",
+				},
 			},
 			expectedOutput: "provider: protonvpn\n" +
 				"vpn_type: openvpn\n" +
 				"username: user\n" +
-				"password: pass",
+				"password: pass\n" +
+				"key: key\n" +
+				"cert: cert\n",
 		},
 		"wireguard": {
 			provider: "mullvad",

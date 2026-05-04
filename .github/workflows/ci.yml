@@ -70,6 +70,26 @@ jobs:
       - name: Build final image
         run: docker build -t final-image .
 
+  verify-tools:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: ./devrun/go.mod
+      - run: go test ./...
+        working-directory: ./devrun
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: ./ci/go.mod
+      - run: go test ./...
+        working-directory: ./ci
+
   verify-private:
     if: |
       github.repository == 'qdm12/gluetun' &&
